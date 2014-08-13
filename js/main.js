@@ -1,39 +1,52 @@
-var M = {};
+var scene, camera, renderer;
 
-M.audio = new AudioController();
-
-M.scene = new THREE.Scene();
-M.renderer = new THREE.WebGLRenderer({
-  antialias: true
-});
-M.w = window.innerWidth;
-M.h = window.innerHeight;
-M.ratio = M.w / M.h;
-M.camera = new THREE.PerspectiveCamera(60, M.ratio, 1, 2000);
-M.camera.position.z = 100;
-M.controls = new THREE.OrbitControls(M.camera);
-
-M.init = function() {
-  this.renderer.setSize(window.innerWidth, window.innerHeight);
-  this.renderer.setClearColor(0xffffff)
-  document.body.appendChild(this.renderer.domElement);
-  M.lotus = new Lotus();
+var loader = new Loader();
+loader.onStart = function(){
+  init();
+  animate();
 }
 
-M.animate = function() {
-  requestAnimationFrame(this.animate.bind(this));
-  this.controls.update();
-  this.renderer.render(this.scene, this.camera);
+var audio = new AudioController();
+var TEXTURES = {};
+var normals = [];
+loadTexture('moss', 'assets/normals/sand.png', normals)
+
+function init() {
+  scene = new THREE.Scene();
+  renderer = new THREE.WebGLRenderer({
+    antialias: true
+  });
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 1, 2000);
+  camera.position.z = 200;
+  controls = new THREE.OrbitControls(camera);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
 }
 
-M.onResize = function() {
-  this.w = window.innerWidth;
-  this.h = window.innerHeight;
-  this.ratio = this.w / this.h;
-  this.camera.aspect = this.ratio;
-  this.camera.updateProjectionMatrix();
-  this.renderer.setSize(this.w, this.h);
-
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
 }
 
-window.addEventListener('resize', M.onResize.bind(M), false);
+function onResize() {
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function loadTexture(name, file, array){
+  this.loader.beginLoading();
+  var cb = function(){
+    loader.endLoading();
+  };
+
+  var m = THREE.UVMapping;
+
+  var l = THREE.ImageUtils.loadTexture;
+
+  TEXTURES[name] = l(file, m, cb);
+  array.push(TEXTURES[name]);
+}
+
+window.addEventListener('resize', onResize, false);
