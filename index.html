@@ -6,12 +6,15 @@
     <body>
 
         <script src="lib/three.js"></script>
+        <script src="lib/Stream.js"></script>
         <script src="lib/AudioController.js"></script>
         <script src="js/main.js"></script>
 
         <script>
           M.init();
           M.animate();
+          M.stream = new Stream('audio/splendor.mp3', M.audio);
+          M.stream.play();
         </script>
 
     </body>
