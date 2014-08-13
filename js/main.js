@@ -19,9 +19,11 @@ shaders.shaderSetLoaded = function(){
   loader.endLoading();
 }
 
-var gui = new dat.GUI();
+var gui = new dat.GUI({autoplace: false});
 gui.close();
-document.appendChild(gui);
+
+var guiContainer = document.getElementById('GUI');
+guiContainer.appendChild(gui.domElement)
 
 var audio = new AudioController();
 
@@ -34,8 +36,10 @@ function init() {
   camera.position.z = 2000;
   controls = new THREE.OrbitControls(camera);
   renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
 
+  container = document.createElement('div');
+  container.id = "container";
+  container.appendChild(renderer.domElement);
   pond = new Pond();
 }
 
