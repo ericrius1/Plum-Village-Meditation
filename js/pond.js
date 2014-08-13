@@ -14,7 +14,19 @@ var Pond = function(){
   pondGui.add(pp.bumpCutoff, 'value').name('bumpCutoff');
 
   var pondGeo = new THREE.PlaneGeometry(5000, 5000, 100, 100);
-  var pond = new THREE.Mesh(pondGeo);
+
+  var pondMat = new THREE.ShaderMaterial({
+    uniforms: {
+      timer: timer,
+      bumpHeight: pondParams.bumpHeight,
+      bumpSize: pondParams.bumpSize,
+      bumpSpeed: pondParams.bumpSpeed,
+      bumpCutoff: pondParams.bumpCutoff,
+    },
+    vertexShader: shaders.vs.pond,
+    fragmentShader: shaders.fs.pond
+  })
+  var pond = new THREE.Mesh(pondGeo, pondMat);
   pond.rotation.x = -Math.PI/2;
   scene.add(pond);
 }

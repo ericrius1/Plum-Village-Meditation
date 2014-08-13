@@ -1,5 +1,6 @@
-var scene, camera, renderer, pond;
-
+var scene, camera, renderer, clock;
+var pond;
+var timer = {type: 'f', value: 0};
 var loader = new Loader();
 loader.onStart = function(){
   init();
@@ -28,6 +29,7 @@ guiContainer.appendChild(gui.domElement)
 var audio = new AudioController();
 
 function init() {
+  clock = new THREE.Clock();
   scene = new THREE.Scene();
   renderer = new THREE.WebGLRenderer({
     antialias: true
@@ -47,6 +49,7 @@ function init() {
 }
 
 function animate() {
+  timer.value += clock.getDelta();
   requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
