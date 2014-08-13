@@ -44,7 +44,7 @@ function init() {
   container.appendChild(renderer.domElement);
   
   controls = new THREE.OrbitControls(camera, renderer.domElement);
-
+  controls.maxPolarAngle = Math.PI/2.1;
   pond = new Pond();
 }
 
@@ -53,6 +53,7 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
+  // pond.update();
 }
 
 function onResize() {

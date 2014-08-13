@@ -1,9 +1,9 @@
 var Pond = function(){
 
   var pondParams = {
-    bumpHeight: {type: 'f', value: 7},
-    bumpSpeed: {type: 'f', value: .1},
+    bumpHeight: {type: 'f', value: 200},
     bumpSize: {type: 'f', value: 0.001},
+    bumpSpeed: {type: 'f', value: .1},
     bumpCutoff: {type: 'f', value: 0.5}
   }
   var pondGui = gui.addFolder('Pond Params');
@@ -29,4 +29,9 @@ var Pond = function(){
   var pond = new THREE.Mesh(pondGeo, pondMat);
   pond.rotation.x = -Math.PI/2;
   scene.add(pond);
+
+  // this.update = function(){
+  //   pond.geometry.vertices[5000].z +=1;
+  //   pond.geometry.verticesNeedUpdate = true;
+  // }
 }
