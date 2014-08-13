@@ -1,5 +1,8 @@
 
 var M = {};
+
+M.audio = new AudioController();
+
 M.scene = new THREE.Scene();
 M.renderer = new THREE.WebGLRenderer({antialias: true});
 M.w = window.innerWidth;
