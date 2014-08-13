@@ -34,12 +34,15 @@ function init() {
   });
   camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 1, 200000);
   camera.position.z = 2000;
-  controls = new THREE.OrbitControls(camera);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   container = document.createElement('div');
   container.id = "container";
+  document.body.appendChild(container);
   container.appendChild(renderer.domElement);
+  
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+
   pond = new Pond();
 }
 
