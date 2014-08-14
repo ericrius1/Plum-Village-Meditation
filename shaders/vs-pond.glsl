@@ -4,6 +4,8 @@ uniform float bumpSize;
 uniform float bumpSpeed;
 uniform float bumpCutoff;
 
+varying vec3 vMPos;
+
 $simplex
 
 vec3 noisePos(vec3 pos, vec2 offset, float cutoff){
@@ -17,8 +19,10 @@ vec3 noisePos(vec3 pos, vec2 offset, float cutoff){
 void main(){
   vec2 centerUV = abs(uv - vec2(.5, .5));
 
-  float dCutoff = max(0., (1. - pow((length(centerUV) * 3.), bumpCutoff)));
+  float dCutoff = max(0., (1. - pow((length(centerUV) * 3.0), bumpCutoff)));
   vec2 offset = vec2(timer, timer) * vec2(bumpSpeed, bumpSpeed * 0.7);
   vec3 fPos = noisePos(position, offset, dCutoff);
+
+  vMPos = (modelMatrix * vec4(fPos, 1.)).xyz;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(fPos, 1.);
 }

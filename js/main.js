@@ -1,15 +1,26 @@
-var scene, camera, renderer, clock;
-var pond;
+//imagine a hurt you have held. Now hold down on the container
+//to fill it up with the hurt. now let it go
+
+//Now imagine filling up the container with love for the world
+//charge it up. And let it go into the world
+
+var scene, camera, renderer, clock, objectControls;
+var pond, petalObject, pond, magicball;
 var timer = {type: 'f', value: 0};
 var loader = new Loader();
 loader.onStart = function(){
   init();
   animate();
 }
+loader.beginLoading();
+new THREE.OBJMTLLoader().load('assets/petal.obj', 'assets/petal.mtl', function(object){
+  petalObject = object;
+  loader.endLoading()
+})
 var TEXTURES = {};
 var normals = [];
 loadTexture('moss', 'assets/normals/sand.png', normals)
-
+  
 var shaders = new ShaderLoader('shaders');
 
 loader.beginLoading();
@@ -26,7 +37,22 @@ gui.close();
 var guiContainer = document.getElementById('GUI');
 guiContainer.appendChild(gui.domElement)
 
-var audio = new AudioController();
+
+//*****************AUDIO***************
+var audioController = new AudioController();
+var AUDIO = {};
+loader.beginLoading();
+var file = 'audio/allRight.mp3';
+AUDIO['splendor'] = new LoadedAudio(audioController, file);
+AUDIO['splendor'].onLoad = function(){
+  loader.endLoading();
+}
+
+var looper = new Looper(audioController, timer, {
+  beatsPerMinute: 120,
+  beatsPerMeasure: 4,
+  measuresPerLoop: 8
+});
 
 function init() {
   clock = new THREE.Clock();
@@ -45,14 +71,22 @@ function init() {
   
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.maxPolarAngle = Math.PI/2.1;
+
+  objectControls = new ObjectControls(camera);
+
   pond = new Pond();
+  magicball = new MagicBall();
+  // lotus = new Lotus();
+
 }
 
 function animate() {
   timer.value += clock.getDelta();
   requestAnimationFrame(animate);
   controls.update();
+  objectControls.update();
   renderer.render(scene, camera);
+
   // pond.update();
 }
 

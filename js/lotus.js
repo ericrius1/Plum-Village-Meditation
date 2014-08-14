@@ -1,17 +1,17 @@
-var Lotus = function(object) {
+var Lotus = function() {
 
 
   var light = new THREE.PointLight(0xeeeeee);
   light.position.set(-10, 20, -20);
-  M.scene.add(light);
+  scene.add(light);
 
   var light = new THREE.PointLight(0xdddddd);
   light.position.set(0, -10, 3);
-  M.scene.add(light);
+  scene.add(light);
 
   var pointLight = new THREE.PointLight(0x3A8BAB);
   pointLight.position.set(5, 20, 20);
-  M.scene.add(pointLight);
+  scene.add(pointLight);
 
   var numPetals = 20
   var petals = [];
@@ -23,10 +23,11 @@ var Lotus = function(object) {
   var spinOffset = 0;
 
   var petal;
+  var petalGeo;
   for (var i = 0; i < numPetals; i++) {
-
-    petal = object.clone();
-    petal.rotation.order = "YXZ";
+    petalGeo = petalObject.clone().children[0].geometry;
+    petal = new THREE.Mesh(petalGeo);
+    // petal.rotation.order = "YXZ";
     petal.rotation.y = i * spin;
     petal.rotation.x = -i * bloom + Math.sin(i * growth) * 0.01;
     petal.rotation.z = 0.2;
@@ -36,7 +37,7 @@ var Lotus = function(object) {
 
     petal.position.applyEuler(new THREE.Euler(0, (spin + spinOffset) * i, 0, 'XYZ'));
     petals.push(petal);
-    M.scene.add(petal);
+    scene.add(petal);
   }
   this.updateFlower = function() {
     for (var i = 0; i < numPetals; i++) {

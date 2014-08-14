@@ -13,7 +13,7 @@ var Pond = function(){
   pondGui.add(pp.bumpSpeed, 'value').name('bumpSpeed');
   pondGui.add(pp.bumpCutoff, 'value').name('bumpCutoff');
 
-  var pondGeo = new THREE.PlaneGeometry(5000, 5000, 100, 100);
+  var pondGeo = new THREE.PlaneGeometry(5000, 5000, 3, 3);
 
   var pondMat = new THREE.ShaderMaterial({
     uniforms: {
