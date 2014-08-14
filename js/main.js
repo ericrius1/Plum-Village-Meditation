@@ -42,9 +42,14 @@ guiContainer.appendChild(gui.domElement)
 var audioController = new AudioController();
 var AUDIO = {};
 loader.beginLoading();
-var file = 'audio/allRight.mp3';
-AUDIO['splendor'] = new LoadedAudio(audioController, file);
+loader.beginLoading();
+var file = '';
+AUDIO['splendor'] = new LoadedAudio(audioController, 'audio/allRight.mp3');
+AUDIO['omm'] = new LoadedAudio(audioController, 'audio/omm.mp3');
 AUDIO['splendor'].onLoad = function(){
+  loader.endLoading();
+}
+AUDIO['omm'].onLoad = function(){
   loader.endLoading();
 }
 

@@ -6,9 +6,12 @@ function MagicBall(){
 
   objectControls.add(ball);
 
+  var audio = AUDIO['omm'];
+
   ball.select = function(){
-    debugger;
     ball.material.color.r = 1;
+    audio.play();
+
   }
 
 
