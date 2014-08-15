@@ -1,3 +1,4 @@
+// author: @cabbibo
 function Loader(params){
   this.params = _.defaults(params || {}, {
     numberToLoad: 0

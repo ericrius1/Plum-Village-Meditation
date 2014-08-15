@@ -10,10 +10,15 @@ var timer = {
   type: 'f',
   value: 0
 };
+var dT = { type:"f" , value: 0 };
 var loader = new Loader();
 loader.onStart = function() {
   init();
   animate();
+  
+}
+loader.onCurtainLifted = function(){
+  looper.start();
 }
 loader.beginLoading();
 new THREE.OBJMTLLoader().load('assets/petal.obj', 'assets/petal.mtl', function(object) {
@@ -29,6 +34,8 @@ var shaders = new ShaderLoader('shaders');
 loader.beginLoading();
 shaders.load('vs-pond', 'pond', 'vertex');
 shaders.load('fs-pond', 'pond', 'fragment');
+shaders.load('vs-ball', 'ball', 'vertex');
+shaders.load('fs-ball', 'ball', 'fragment');
 
 shaders.shaderSetLoaded = function() {
   loader.endLoading();
@@ -97,10 +104,12 @@ function init() {
 }
 
 function animate() {
+  dT.value = clock.getDelta();
   timer.value += clock.getDelta();
   requestAnimationFrame(animate);
   controls.update();
   objectControls.update();
+  audioController.update();
   renderer.render(scene, camera);
 
   // pond.update();
