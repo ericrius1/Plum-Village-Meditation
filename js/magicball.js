@@ -28,6 +28,7 @@ function MagicBall(){
   lightParams.colors.value.push(   ball.color );
 
   looper.everyLoop(function(){
+    console.log('ss')
     this.audio.play()
   }.bind(ball));
 

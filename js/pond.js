@@ -3,7 +3,7 @@ var Pond = function() {
   var pondParams = {
     bumpHeight: {
       type: 'f',
-      value: 200
+      value: 0
     },
     bumpSize: {
       type: 'f',

@@ -48,16 +48,6 @@ var guiContainer = document.getElementById('GUI');
 guiContainer.appendChild(gui.domElement)
 
 
-
-var looper = new Looper(audioController, timer, {
-
-  beatsPerMinute: 120,
-  beatsPerMeasure: 4,
-  measuresPerLoop: 8
-
-});
-
-
 //*****************AUDIO***************
 var audioController = new AudioController();
 var AUDIO = {};
@@ -72,7 +62,7 @@ AUDIO['omm'].onLoad = function() {
 var looper = new Looper(audioController, timer, {
   beatsPerMinute: 120,
   beatsPerMeasure: 4,
-  measuresPerLoop: 8
+  measuresPerLoop: 2
 });
 
 var lightParams = {
@@ -136,7 +126,7 @@ function init() {
 
 function animate() {
   dT.value = clock.getDelta();
-  timer.value += clock.getDelta();
+  timer.value += dT.value;
   requestAnimationFrame(animate);
   controls.update();
   objectControls.update();
