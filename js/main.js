@@ -98,6 +98,13 @@ var lightParams = {
 
 }
 
+var lightGui = gui.addFolder( 'Light Params' );
+
+lightGui.add( lightParams.cutoff , 'value' ).name( 'cutoff' );
+lightGui.add( lightParams.power  , 'value' ).name( 'power' );
+lightGui.add( lightParams.normalScale , 'value' ).name( 'normalScale' );
+lightGui.add( lightParams.texScale  , 'value' ).name( 'texScale' );
+
 function init() {
   clock = new THREE.Clock();
   scene = new THREE.Scene();
@@ -118,8 +125,8 @@ function init() {
 
   objectControls = new ObjectControls(camera);
 
-  pond = new Pond();
   magicball = new MagicBall();
+  pond = new Pond();
   // lotus = new Lotus();
 
 }

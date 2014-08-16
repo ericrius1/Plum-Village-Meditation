@@ -21,14 +21,14 @@ function MagicBall(){
   ball.playing = false;
   ball.audio = audio;
   ball.audio.gain.gain.value = 0.0;
-  ball.position.y = 200;
+  ball.position.y = 500;
+  ball.texture = audio.texture;
 
-  lightParams.textures.value.push(   audio.texture );
+  lightParams.textures.value.push(   ball.texturesss );
   lightParams.positions.value.push(  ball.position );
   lightParams.colors.value.push(   ball.color );
 
   looper.everyLoop(function(){
-    console.log('ss')
     this.audio.play()
   }.bind(ball));
 

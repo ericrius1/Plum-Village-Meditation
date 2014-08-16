@@ -1,6 +1,9 @@
 var Pond = function() {
 
   var pondParams = {
+
+    normalScale:{ type:"f" , value:.3 } ,
+    texScale: { type:"f" , value:7 } ,
     bumpHeight: {
       type: 'f',
       value: 0
@@ -30,6 +33,10 @@ var Pond = function() {
   var pondMat = new THREE.ShaderMaterial({
     uniforms: {
       timer: timer,
+      t_normal:{ type:"t" , value: TEXTURES.moss },
+      t_iri:{ type:"t" , value: TEXTURES.iriTurq },
+      normalScale:  pondParams.normalScale,
+      texScale:     pondParams.texScale,
       bumpHeight: pondParams.bumpHeight,
       bumpSize: pondParams.bumpSize,
       bumpSpeed: pondParams.bumpSpeed,
@@ -46,7 +53,7 @@ var Pond = function() {
     },
     vertexShader: shaders.vs.pond,
     fragmentShader: shaders.fs.pond
-  })
+  });
   var pond = new THREE.Mesh(pondGeo, pondMat);
   pond.rotation.x = -Math.PI / 2;
   scene.add(pond);
