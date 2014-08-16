@@ -23,11 +23,6 @@ loader.onStart = function() {
 loader.onCurtainLifted = function() {
   looper.start();
 }
-loader.beginLoading();
-new THREE.OBJMTLLoader().load('assets/petal.obj', 'assets/petal.mtl', function(object) {
-  petalObject = object;
-  loader.endLoading()
-})
 var TEXTURES = {};
 var normals = [];
 loadTexture('moss', 'assets/normals/sand.png', normals)
