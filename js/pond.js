@@ -1,10 +1,22 @@
-var Pond = function(){
+var Pond = function() {
 
   var pondParams = {
-    bumpHeight: {type: 'f', value: 200},
-    bumpSize: {type: 'f', value: 0.001},
-    bumpSpeed: {type: 'f', value: .1},
-    bumpCutoff: {type: 'f', value: 0.5}
+    bumpHeight: {
+      type: 'f',
+      value: 200
+    },
+    bumpSize: {
+      type: 'f',
+      value: 0.001
+    },
+    bumpSpeed: {
+      type: 'f',
+      value: .1
+    },
+    bumpCutoff: {
+      type: 'f',
+      value: 0.5
+    }
   }
   var pondGui = gui.addFolder('Pond Params');
   var pp = pondParams;
@@ -22,12 +34,21 @@ var Pond = function(){
       bumpSize: pondParams.bumpSize,
       bumpSpeed: pondParams.bumpSpeed,
       bumpCutoff: pondParams.bumpCutoff,
+      lightCutoff: lightParams.cutoff,
+      lightPower: lightParams.power,
+      lightPositions: lightParams.positions,
+      lightTextures: lightParams.textures,
+      lightColors: lightParams.colors,
+      cameraPos: {
+        type: "v3",
+        value: camera.position
+      }
     },
     vertexShader: shaders.vs.pond,
     fragmentShader: shaders.fs.pond
   })
   var pond = new THREE.Mesh(pondGeo, pondMat);
-  pond.rotation.x = -Math.PI/2;
+  pond.rotation.x = -Math.PI / 2;
   scene.add(pond);
 
   // this.update = function(){

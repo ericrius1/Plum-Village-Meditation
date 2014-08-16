@@ -10,14 +10,17 @@ var timer = {
   type: 'f',
   value: 0
 };
-var dT = { type:"f" , value: 0 };
+var dT = {
+  type: "f",
+  value: 0
+};
 var loader = new Loader();
 loader.onStart = function() {
   init();
   animate();
-  
+
 }
-loader.onCurtainLifted = function(){
+loader.onCurtainLifted = function() {
   looper.start();
 }
 loader.beginLoading();
@@ -77,6 +80,39 @@ var looper = new Looper(audioController, timer, {
   measuresPerLoop: 8
 });
 
+var lightParams = {
+
+  cutoff: {
+    type: "f",
+    value: 1000
+  },
+  power: {
+    type: "f",
+    value: 1
+  },
+  positions: {
+    type: "v3v",
+    value: []
+  },
+  textures: {
+    type: "tv",
+    value: []
+  },
+  colors: {
+    type: "v3v",
+    value: []
+  },
+  normalScale: {
+    type: "f",
+    value: .5
+  },
+  texScale: {
+    type: "f",
+    value: 1.5
+  },
+
+}
+
 function init() {
   clock = new THREE.Clock();
   scene = new THREE.Scene();
@@ -132,6 +168,8 @@ function loadTexture(name, file, array) {
   var l = THREE.ImageUtils.loadTexture;
 
   TEXTURES[name] = l(file, m, cb);
+  TEXTURES[name].wrapS = THREE.RepeatWrapping;
+  TEXTURES[name].wrapT = THREE.RepeatWrapping;
   array.push(TEXTURES[name]);
 }
 

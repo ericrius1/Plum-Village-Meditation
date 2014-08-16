@@ -1,12 +1,15 @@
 function MagicBall(){
   var audio = AUDIO['omm'];
+  var color = new THREE.Vector3(1.0, 0.2, 0.2);
   var ballGeo = new THREE.IcosahedronGeometry(50, 2);
   var mat = new THREE.ShaderMaterial({
     uniforms:{
       timer: timer,
+      normalScale:  lightParams.normalScale,
+      texScale:     lightParams.texScale,
       t_normal: {type: 't', value: TEXTURES.moss},
       cameraPos: {type: 'v3', value: camera.position},
-      color: {type:'v3', value: new THREE.Vector3(0.7, 0.1, 0.7)},
+      color: {type:'v3', value: color},
       t_audio: {type: 't', value: audio.texture},
       hovered: {type: 'f', value: 0}
     },
@@ -14,16 +17,21 @@ function MagicBall(){
     fragmentShader: shaders.fs.ball
   })
   var ball = new THREE.Mesh(ballGeo, mat);
+  ball.color = color;
   ball.playing = false;
   ball.audio = audio;
   ball.audio.gain.gain.value = 0.0;
   ball.position.y = 200;
 
+  lightParams.textures.value.push(   audio.texture );
+  lightParams.positions.value.push(  ball.position );
+  lightParams.colors.value.push(   ball.color );
+
   looper.everyLoop(function(){
     this.audio.play()
   }.bind(ball));
 
-  ball.audio.updateAnalyzer = true;
+  ball.audio.updateAnalyser = true;
   ball.audio.updateTexture = true;
   objectControls.add(ball);
   scene.add(ball);
