@@ -127,7 +127,7 @@ function init() {
 
   magicball = new MagicBall();
   pond = new Pond();
-  // lotus = new Lotus();
+  lotus = new Lotus();
 
 }
 
