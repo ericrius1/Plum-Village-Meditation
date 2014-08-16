@@ -2,8 +2,14 @@ var Pond = function() {
 
   var pondParams = {
 
-    normalScale:{ type:"f" , value:.3 } ,
-    texScale: { type:"f" , value:7 } ,
+    normalScale: {
+      type: "f",
+      value: .3
+    },
+    texScale: {
+      type: "f",
+      value: 7
+    },
     bumpHeight: {
       type: 'f',
       value: 0
@@ -33,10 +39,16 @@ var Pond = function() {
   var pondMat = new THREE.ShaderMaterial({
     uniforms: {
       timer: timer,
-      t_normal:{ type:"t" , value: TEXTURES.moss },
-      t_iri:{ type:"t" , value: TEXTURES.iriTurq },
-      normalScale:  pondParams.normalScale,
-      texScale:     pondParams.texScale,
+      t_normal: {
+        type: "t",
+        value: TEXTURES.moss
+      },
+      t_iri: {
+        type: "t",
+        value: TEXTURES.iriTurq
+      },
+      normalScale: pondParams.normalScale,
+      texScale: pondParams.texScale,
       bumpHeight: pondParams.bumpHeight,
       bumpSize: pondParams.bumpSize,
       bumpSpeed: pondParams.bumpSpeed,
@@ -58,8 +70,7 @@ var Pond = function() {
   pond.rotation.x = -Math.PI / 2;
   scene.add(pond);
 
-  // this.update = function(){
-  //   pond.geometry.vertices[5000].z +=1;
-  //   pond.geometry.verticesNeedUpdate = true;
-  // }
+  this.update = function(){
+    var audioTextureData = new Float32Array( this.width * 4 );
+  }
 }

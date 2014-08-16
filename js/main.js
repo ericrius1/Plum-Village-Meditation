@@ -139,8 +139,8 @@ function animate() {
   objectControls.update();
   audioController.update();
   renderer.render(scene, camera);
-
-  // pond.update();
+  magicball.update();
+  pond.update();
 }
 
 function onResize() {

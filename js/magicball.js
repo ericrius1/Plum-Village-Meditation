@@ -1,17 +1,32 @@
-function MagicBall(){
+function MagicBall() {
   var audio = AUDIO['omm'];
   var color = new THREE.Vector3(1.0, 0.2, 0.2);
   var ballGeo = new THREE.IcosahedronGeometry(50, 2);
   var mat = new THREE.ShaderMaterial({
-    uniforms:{
+    uniforms: {
       timer: timer,
-      normalScale:  lightParams.normalScale,
-      texScale:     lightParams.texScale,
-      t_normal: {type: 't', value: TEXTURES.moss},
-      cameraPos: {type: 'v3', value: camera.position},
-      color: {type:'v3', value: color},
-      t_audio: {type: 't', value: audio.texture},
-      hovered: {type: 'f', value: 0}
+      normalScale: lightParams.normalScale,
+      texScale: lightParams.texScale,
+      t_normal: {
+        type: 't',
+        value: TEXTURES.moss
+      },
+      cameraPos: {
+        type: 'v3',
+        value: camera.position
+      },
+      color: {
+        type: 'v3',
+        value: color
+      },
+      t_audio: {
+        type: 't',
+        value: audio.texture
+      },
+      hovered: {
+        type: 'f',
+        value: 0
+      }
     },
     vertexShader: shaders.vs.ball,
     fragmentShader: shaders.fs.ball
@@ -24,11 +39,11 @@ function MagicBall(){
   ball.position.y = 500;
   ball.texture = audio.texture;
 
-  lightParams.textures.value.push(   ball.texturesss );
-  lightParams.positions.value.push(  ball.position );
-  lightParams.colors.value.push(   ball.color );
+  lightParams.textures.value.push(ball.texture);
+  lightParams.positions.value.push(ball.position);
+  lightParams.colors.value.push(ball.color);
 
-  looper.everyLoop(function(){
+  looper.everyLoop(function() {
     this.audio.play()
   }.bind(ball));
 
@@ -38,32 +53,32 @@ function MagicBall(){
   scene.add(ball);
 
 
-  ball.select = function(){
+  ball.select = function() {
     this.playing = !this.playing;
-    if(this.playing === false){
+    if (this.playing === false) {
       this.audio.gain.gain.value = 0.0;
 
-    }else{
+    } else {
       this.audio.gain.gain.value = 0.8;
 
     }
 
   }.bind(ball);
 
-  ball.hoverOver = function(){
+  ball.hoverOver = function() {
     this.material.uniforms.hovered.value = 1.0;
   }.bind(ball);
 
-  ball.hoverOut = function(){
+  ball.hoverOut = function() {
     this.material.uniforms.hovered.value = 0.0;
   }.bind(ball);
 
-  ball.deselect = function(){
+  ball.deselect = function() {
     // this.playing = false;
     // this.audio.gain.gain.value = 0.0;
   }
 
-  this.update = function(){
+  this.update = function() {
   }
 
 
