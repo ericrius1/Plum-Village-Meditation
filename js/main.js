@@ -84,7 +84,7 @@ var lightParams = {
   },
   normalScale: {
     type: "f",
-    value: .5
+    value: 1.5
   },
   texScale: {
     type: "f",
@@ -100,6 +100,8 @@ lightGui.add( lightParams.power  , 'value' ).name( 'power' );
 lightGui.add( lightParams.normalScale , 'value' ).name( 'normalScale' );
 lightGui.add( lightParams.texScale  , 'value' ).name( 'texScale' );
 
+var camZoomOut = 0.001;
+var camZoomOutIncrease = 1.001;
 function init() {
   var stream = new Stream('audio/splendor.mp3', audioController);
   stream.play();
@@ -109,7 +111,9 @@ function init() {
     antialias: true
   });
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 200000);
-  camera.position.z = 2000;
+  // camera.position.z = 2000;
+  camera.position.y = 410;
+  camera.lookAt(new THREE.Vector3());
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   container = document.createElement('div');
@@ -137,6 +141,8 @@ function animate() {
   renderer.render(scene, camera);
   pond.update();
   lotus.update();
+  // camera.position.y += camZoomOut;
+  // camZoomOut *= camZoomOutIncrease;
 }
 
 function onResize() {
