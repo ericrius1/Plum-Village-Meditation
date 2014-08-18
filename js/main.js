@@ -5,7 +5,8 @@
 //charge it up. And let it go into the world
 
 var scene, camera, renderer, clock, objectControls;
-var pond, petalObject, pond;
+var pond, petalObject, pond, lotusfield;
+var randFloat =THREE.randFloat;
 var timer = {
   type: 'f',
   value: 0
@@ -18,11 +19,55 @@ var loader = new Loader();
 loader.onStart = function() {
   init();
   animate();
+}
+
+
+function init() {
+  var numLotus
+  var stream = new Stream('audio/splendor.mp3', audioController);
+  stream.play();
+  clock = new THREE.Clock();
+  scene = new THREE.Scene();
+  renderer = new THREE.WebGLRenderer({
+    antialias: true
+  });
+  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 200000);
+  // camera.position.z = 2000;
+  camera.position.y = 410;
+  camera.lookAt(new THREE.Vector3());
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  container = document.createElement('div');
+  container.id = "container";
+  document.body.appendChild(container);
+  container.appendChild(renderer.domElement);
+
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.maxPolarAngle = Math.PI / 2.1;
+
+  objectControls = new ObjectControls(camera);
+
+  pond = new Pond();
+  lotusfield = new LotusField();
 
 }
-loader.onCurtainLifted = function() {
-  looper.start();
+
+function animate() {
+  dT.value = clock.getDelta();
+  timer.value += dT.value;
+  requestAnimationFrame(animate);
+  controls.update();
+  objectControls.update();
+  audioController.update();
+  renderer.render(scene, camera);
+  pond.update();
+  lotusfield.update();
+  TWEEN.update();
+  // camera.position.y += camZoomOut;
+  // camZoomOut *= camZoomOutIncrease;
 }
+
+
 var TEXTURES = {};
 var normals = [];
 loadTexture('moss', 'assets/normals/sand.png', normals)
@@ -53,12 +98,6 @@ var audioController = new AudioController();
 var AUDIO = {};
 
 
-
-var looper = new Looper(audioController, timer, {
-  beatsPerMinute: 120,
-  beatsPerMeasure: 4,
-  measuresPerLoop: 2
-});
 
 var lightParams = {
 
@@ -93,57 +132,15 @@ var lightParams = {
 
 }
 
-var lightGui = gui.addFolder( 'Light Params' );
+var lightGui = gui.addFolder('Light Params');
 
-lightGui.add( lightParams.cutoff , 'value' ).name( 'cutoff' );
-lightGui.add( lightParams.power  , 'value' ).name( 'power' );
-lightGui.add( lightParams.normalScale , 'value' ).name( 'normalScale' );
-lightGui.add( lightParams.texScale  , 'value' ).name( 'texScale' );
+lightGui.add(lightParams.cutoff, 'value').name('cutoff');
+lightGui.add(lightParams.power, 'value').name('power');
+lightGui.add(lightParams.normalScale, 'value').name('normalScale');
+lightGui.add(lightParams.texScale, 'value').name('texScale');
 
 var camZoomOut = 0.001;
 var camZoomOutIncrease = 1.001;
-function init() {
-  var stream = new Stream('audio/splendor.mp3', audioController);
-  stream.play();
-  clock = new THREE.Clock();
-  scene = new THREE.Scene();
-  renderer = new THREE.WebGLRenderer({
-    antialias: true
-  });
-  camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 200000);
-  // camera.position.z = 2000;
-  camera.position.y = 410;
-  camera.lookAt(new THREE.Vector3());
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
-  container = document.createElement('div');
-  container.id = "container";
-  document.body.appendChild(container);
-  container.appendChild(renderer.domElement);
-
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.maxPolarAngle = Math.PI / 2.1;
-
-  objectControls = new ObjectControls(camera);
-
-  pond = new Pond();
-  lotus = new Lotus();
-
-}
-
-function animate() {
-  dT.value = clock.getDelta();
-  timer.value += dT.value;
-  requestAnimationFrame(animate);
-  controls.update();
-  objectControls.update();
-  audioController.update();
-  renderer.render(scene, camera);
-  pond.update();
-  lotus.update();
-  // camera.position.y += camZoomOut;
-  // camZoomOut *= camZoomOutIncrease;
-}
 
 function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;

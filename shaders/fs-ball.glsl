@@ -30,7 +30,7 @@ void main(){
   vec3 T = normalize( -q0 * st1.s + q1 * st0.s );
   vec3 N = normalize( vNorm );
 
-  vec2 offset = vec2(  timer * .000000442 , timer * .0000005345 );
+  vec2 offset = vec2(  timer * .0442 , timer * .0000005345 );
 
   vec3 mapN = texture2D( t_normal, vUv*texScale+offset ).xyz * 2.0 - 1.0;
   mapN.xy = normalScale * mapN.xy;

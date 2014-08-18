@@ -4,9 +4,9 @@ uniform float timer;
 uniform sampler2D t_normal;
 uniform sampler2D t_iri;
 
-uniform vec3 lightPositions[1];
-uniform vec3 lightColors[1];
-uniform sampler2D lightTextures[1];
+uniform vec3 lightPositions[15];
+uniform vec3 lightColors[15];
+uniform sampler2D lightTextures[15];
 uniform vec3 cameraPos;
 
 uniform float normalScale;
@@ -47,14 +47,13 @@ void main(){
 
 
   vec2 centerUV = abs( vUv - vec2( .5 , .5 ) );
-  float dCutoff = max( 0. , (1. - pow((length( centerUV )*3.), 2.)));
 
 
   vec3 camDir   = normalize( vMPos - cameraPos);
 
 
   vec3 totalIri = vec3( 0.);
-  for( int i = 0; i < 1; i++ ){
+  for( int i = 0; i < 15; i++ ){
 
     vec3 lightPos = lightPositions[i];
 
@@ -77,7 +76,7 @@ void main(){
 
   }
 
-  gl_FragColor = vec4( totalIri * dCutoff , 1. );
+  gl_FragColor = vec4( totalIri  , 1. );
 
 
 }
