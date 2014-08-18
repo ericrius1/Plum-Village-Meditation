@@ -4,25 +4,28 @@ var Lotus = function() {
   var xoff = 0,
     yoff = 0;
   var petals = [];
-  var numPetals = 10;
+  var numPetals = 3;
   var vertexCount = 0;
 
   var petalShape = new THREE.Shape(); // From http://blog.burlock.org/html5/130-paths
-  petalShape.moveTo(262 + xoff, 16 + yoff);
+  //262, 16
+  var x= 262;
+  petalShape.moveTo(xoff, yoff);
   //aCP1x, aCP1y,aCP2x, aCP2y,aX, aY 
-  petalShape.moveTo(262 + xoff, 16 + yoff);
-  petalShape.bezierCurveTo(254 + xoff, 3 + yoff, 258 + xoff, 49 + yoff, 256 + xoff, 34 + yoff);
-  petalShape.bezierCurveTo(254 + xoff, 19 + yoff, 240 + xoff, 94 + yoff, 240 + xoff, 114 + yoff);
-  petalShape.bezierCurveTo(240 + xoff, 135 + yoff, 228 + xoff, 175 + yoff, 281 + xoff, 172 + yoff);
-  petalShape.bezierCurveTo(296 + xoff, 171 + yoff, 310 + xoff, 125 + yoff, 302 + xoff, 106 + yoff);
-  petalShape.bezierCurveTo(296 + xoff, 92 + yoff, 283 + xoff, 48 + yoff, 273 + xoff, 36 + yoff);
-  petalShape.bezierCurveTo(263 + xoff, 24 + yoff, 275 + xoff, 9 + yoff, 266 + xoff, 21 + yoff);
+  petalShape.bezierCurveTo(x- 254 + xoff, 3 + yoff, x - 258 + xoff, 49 + yoff, x - 256 + xoff, 34 + yoff);
+  petalShape.bezierCurveTo(x- 254 + xoff, 19 + yoff, x - 240 + xoff, 94 + yoff, x - 240 + xoff, 114 + yoff);
+  petalShape.bezierCurveTo( x - 240 + xoff, 135 + yoff, x - 228 + xoff, 175 + yoff, x - 281 + xoff, 172 + yoff);
+  petalShape.bezierCurveTo( x - 296 + xoff, 171 + yoff, x - 310 + xoff, 125 + yoff, x - 302 + xoff, 106 + yoff);
+  petalShape.bezierCurveTo( x - 296 + xoff, 92 + yoff, x - 283 + xoff, 48 + yoff, x - 273 + xoff, 36 + yoff);
+  petalShape.bezierCurveTo( x - 263 + xoff, 24 + yoff, x - 275 + xoff, 9 + yoff, x - 266 + xoff, 21 + yoff);
 
   var extrudeSettings = {
     amount: 1,
   }
 
   var geo = new THREE.ExtrudeGeometry(petalShape, extrudeSettings);
+  // geo.applyMatrix( new THREE.Matrix4().makeTranslation( new THREE.Vector3(0, 0, 0) ) );
+
 
 
   var mat = new THREE.ShaderMaterial({
@@ -57,12 +60,14 @@ var Lotus = function() {
 
   var petal = new THREE.Mesh(geo, mat);
 
+
   for (var i = 0; i < numPetals; i++) {
     petal = petal.clone();
-    petal.position.y = 50;
+    petal.position.y = 101;
     petals.push(petal);
     scene.add(petal);
-    petal.rotation.y = (i / numPetals * (Math.PI * 2));
+    petal.rotation.order = 'YXZ'
+    petal.rotation.y = ( i / numPetals * (Math.PI * 2));;
   }
 
 
@@ -70,11 +75,12 @@ var Lotus = function() {
   lightParams.positions.value.push(petals[0].position);
   lightParams.colors.value.push(color);
 
-
   this.update = function() {
-    for (var i = 0; i < numPetals; i++) {
-      petals[i].rotation.z -= .001;
+    for(var i = 0 ; i < numPetals; i++){
+      petals[i].rotation.x -= 0.01;
     }
   }
 
 }
+
+
