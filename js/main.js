@@ -5,7 +5,7 @@
 //charge it up. And let it go into the world
 
 var scene, camera, renderer, clock, objectControls;
-var pond, petalObject, pond, magicball;
+var pond, petalObject, pond;
 var timer = {
   type: 'f',
   value: 0
@@ -51,13 +51,8 @@ guiContainer.appendChild(gui.domElement)
 //*****************AUDIO***************
 var audioController = new AudioController();
 var AUDIO = {};
-loader.beginLoading();
-var file = '';
-AUDIO['omm'] = new LoadedAudio(audioController, 'audio/omm.mp3');
 
-AUDIO['omm'].onLoad = function() {
-  loader.endLoading();
-}
+
 
 var looper = new Looper(audioController, timer, {
   beatsPerMinute: 120,
@@ -106,6 +101,8 @@ lightGui.add( lightParams.normalScale , 'value' ).name( 'normalScale' );
 lightGui.add( lightParams.texScale  , 'value' ).name( 'texScale' );
 
 function init() {
+  var stream = new Stream('audio/splendor.mp3', audioController);
+  stream.play();
   clock = new THREE.Clock();
   scene = new THREE.Scene();
   renderer = new THREE.WebGLRenderer({
@@ -125,7 +122,6 @@ function init() {
 
   objectControls = new ObjectControls(camera);
 
-  magicball = new MagicBall();
   pond = new Pond();
   lotus = new Lotus();
 
@@ -139,8 +135,8 @@ function animate() {
   objectControls.update();
   audioController.update();
   renderer.render(scene, camera);
-  magicball.update();
   pond.update();
+  lotus.update();
 }
 
 function onResize() {
