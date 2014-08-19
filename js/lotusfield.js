@@ -78,7 +78,7 @@ var LotusField = function() {
     rotX: petal.rotation.x += 1.1
   }
   var bloomTween = new TWEEN.Tween(csd).
-  to(fsd, 113000).
+  to(fsd, 55000).
   onUpdate(function() {
     _.each(petals, function(petal) {
       petal.rotation.x = csd.rotX;
