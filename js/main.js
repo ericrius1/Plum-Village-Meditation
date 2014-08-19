@@ -33,7 +33,7 @@ function init() {
   });
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 200000);
   // camera.position.z = 2000;
-  camera.position.y = 410;
+  camera.position.y = 111;
   camera.lookAt(new THREE.Vector3());
   renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -63,8 +63,8 @@ function animate() {
   pond.update();
   lotusfield.update();
   TWEEN.update();
-  // camera.position.y += camZoomOut;
-  // camZoomOut *= camZoomOutIncrease;
+  camera.position.y += camZoomOut;
+  camZoomOut *= camZoomOutIncrease;
 }
 
 
@@ -127,7 +127,7 @@ var lightParams = {
   },
   texScale: {
     type: "f",
-    value: 1.5
+    value: 0.5
   },
 
 }
@@ -140,7 +140,7 @@ lightGui.add(lightParams.normalScale, 'value').name('normalScale');
 lightGui.add(lightParams.texScale, 'value').name('texScale');
 
 var camZoomOut = 0.001;
-var camZoomOutIncrease = 1.001;
+var camZoomOutIncrease = 1.0015;
 
 function onResize() {
   camera.aspect = window.innerWidth / window.innerHeight;

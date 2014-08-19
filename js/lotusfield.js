@@ -63,7 +63,7 @@ var LotusField = function() {
   }
 
 
-  createLotus(new THREE.Vector3(0, 100, 0));
+  createLotus(new THREE.Vector3(0, 100, 0), new THREE.Vector3(0.9, 0.1, 0.8));
   for(var i = 0; i < numLotuses-1; i++){
     createLotus(new THREE.Vector3(_.random(-pondWidth/3, pondWidth/3), 100, _.random(-pondWidth/3, pondWidth/3)));
   }
@@ -75,18 +75,18 @@ var LotusField = function() {
 
   }
   var fsd = {
-    rotX: petal.rotation.x += 1
+    rotX: petal.rotation.x += 1.1
   }
   var bloomTween = new TWEEN.Tween(csd).
-  to(fsd, 10000).
+  to(fsd, 113000).
   onUpdate(function() {
     _.each(petals, function(petal) {
       petal.rotation.x = csd.rotX;
     });
   }).start();
 
-  function createLotus(position) {
-    var color = new THREE.Vector3(Math.random(), Math.random(), Math.random());
+  function createLotus(position, color) {
+    var color =  color || new THREE.Vector3(Math.random(), Math.random(), Math.random());
     lightParams.textures.value.push(audioController.texture);
     lightParams.positions.value.push(new THREE.Vector3(position.x, position.y + 300, position.z));
     lightParams.colors.value.push(color);
