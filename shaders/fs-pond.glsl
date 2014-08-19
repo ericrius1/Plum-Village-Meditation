@@ -4,9 +4,9 @@ uniform float timer;
 uniform sampler2D t_normal;
 uniform sampler2D t_iri;
 
-uniform vec3 lightPositions[15];
-uniform vec3 lightColors[15];
-uniform sampler2D lightTextures[15];
+uniform vec3 lightPositions[11];
+uniform vec3 lightColors[11];
+uniform sampler2D lightTextures[11];
 uniform vec3 cameraPos;
 
 uniform float normalScale;
@@ -53,7 +53,7 @@ void main(){
 
 
   vec3 totalIri = vec3( 0.);
-  for( int i = 0; i < 15; i++ ){
+  for( int i = 0; i < 11; i++ ){
 
     vec3 lightPos = lightPositions[i];
 

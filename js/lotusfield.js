@@ -1,6 +1,6 @@
 var LotusField = function() {
   var color = new THREE.Vector3(1.0, 0.2, 1.0);
-  var numLotuses = 15;
+  var numLotuses = 11;
   var xoff = 0,
     yoff = 0;
   var petals = [];
@@ -72,6 +72,7 @@ var LotusField = function() {
 
   var csd = {
     rotX: petal.rotation.x
+
   }
   var fsd = {
     rotX: petal.rotation.x += 1
@@ -109,6 +110,6 @@ var LotusField = function() {
   }
 
   this.update = function(){
-    
+
   }
 }
